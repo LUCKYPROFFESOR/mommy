@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary!</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #008080; /* Teal color */
+            color: #FFFFFF; /* White text for contrast */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Hide potential scrollbar from large content */
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background for content */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            max-width: 800px;
+            margin: 20px;
+            position: relative;
+            z-index: 1; /* Ensure container is above particles */
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #FFD700; /* Gold color for heading */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .quote {
+            font-size: 1.5em;
+            margin: 25px 0;
+            font-style: italic;
+            line-height: 1.6;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Initially slightly below */
+            animation: fadeInQuote 1.5s forwards;
+            animation-delay: var(--delay); /* Use CSS variable for staggered animation */
+        }
+        @keyframes fadeInQuote {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .message {
+            font-size: 2em;
+            margin-top: 30px;
+            color: #FFC0CB; /* Pink color for "I love you" message */
+            font-weight: bold;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.05);
+            }
+        }
+        .heart {
+            position: absolute;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: floatHeart 10s infinite ease-in-out;
+            opacity: 0;
+            z-index: 0; /* Send hearts to background */
+        }
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+        .heart::after {
+            top: 0;
+            left: 50%;
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) rotate(-45deg); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(-45deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="background-music" loop autoplay>
+        <source src="your-melody.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="container">
+        <h1>Happy First Month Anniversary!</h1>
+
+        <div class="quote" style="--delay: 0s;">
+            "Your beauty is a light that brightens my world."
+        </div>
+        <div class="quote" style="--delay: 1.5s;">
+            "Every moment with you is a precious memory."
+        </div>
+        <div class="quote" style="--delay: 3s;">
+            "In your eyes, I find a universe of wonder."
+        </div>
+        <div class="quote" style="--delay: 4.5s;">
+            "Your smile is the most beautiful melody."
+        </div>
+        <div class="quote" style="--delay: 6s;">
+            "You are truly captivating, inside and out."
+        </div>
+
+        <div class="message">
+            I love you!
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for creating floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.width = Math.random() * 20 + 10 + 'px'; // Random size
+            heart.style.height = heart.style.width;
+            heart.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+            heart.style.animationDuration = Math.random() * 6 + 4 + 's'; // Random animation duration
+            heart.style.animationDelay = Math.random() * 2 + 's'; // Random delay
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        setInterval(createHeart, 500); // Create a new heart every 500ms
+
+        // Autoplay music (some browsers might block it, requiring user interaction)
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const music = document.getElementById('background-music');
+            music.volume = 0.4; // Adjust volume (0.0 to 1.0)
+            music.play().catch(error => {
+                console.log("Music autoplay blocked:", error);
+                // You might add a play button if autoplay is frequently blocked
+            });
+        });
+    </script>
+</body>
+</html>
